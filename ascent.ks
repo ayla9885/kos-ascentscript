@@ -1,4 +1,5 @@
 // ascent script
+clearscreen.
 
 // variables
 set mySteer to up. 
@@ -13,15 +14,22 @@ function countdown {
     print( secs + "...").
     wait 1.
   }
+  print("Go!").
 }
 
 // gravity turn function
 function gravityturn {
+  clearscreen.
   parameter pitchOver is 3. // initial pitch over (defaults to 3 degrees)
   set mySteer to heading( 90 , 90 - pitchOver).
   until verticalspeed < 0 {
-    wait until verticalspeed >= 100.
-    set mySteer to ship:srfprograde.
+    if verticalspeed >= 100 {
+      set mySteer to ship:srfprograde.
+    }
+    // telemetry output
+    print("Pitch: " + round(pitchOver) + "     ") at (0,0).
+    print("Surface Velocity: " + round(airspeed) + "     ") at (0,1).
+    print("Altitude: " + round(altitude) + "     ") at (0,2).
   }
 }
 
@@ -29,11 +37,8 @@ function gravityturn {
 set firstEngine to 1. 
 list engines in myEngines.
 for eng in myEngines {
-  print("current stage " + stage:number).
-  print("engine stage: " + eng:stage).
   if eng:stage = stage:number - 1  {
     set firstEngine to eng.
-    print(eng).
     break.
   }
 }
@@ -42,8 +47,6 @@ for eng in myEngines {
 countdown(5).
 stage.
 wait until stage:ready.
-until firstEngine:thrust >= firstEngine:maxthrust {
-  print("thrust: " + firstEngine:thrust + "  maxthrust: " + firstEngine:maxthrust).
-}
+wait until firstEngine:thrust >= firstEngine:maxthrust.
 stage.
 gravityturn().
