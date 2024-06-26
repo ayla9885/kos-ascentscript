@@ -1,6 +1,6 @@
 // ascent script
 clearscreen.
-runoncepath("0:ascentscript/libs/telemlib.ks")
+runoncepath("0:ascentscript/libs/telemlib.ks").
 
 // variables
 set mySteer to up. 

@@ -30,7 +30,13 @@ function drawHoriLine {
   parameter vert_dist is terminal:height / 2.
 }
 
-function drawText {
-  parameter starting_x. // must give these parameters the first time function is called
+function drawText { // draws text in a column sperated by "|"
+  parameter text.
+  parameter starting_x. 
   parameter starting_y.
+  local text_list is text:split("|").
+  for n in text_list {
+    print(n) at (starting_x, starting_y).
+    set starting_y to starting_y + 1.
+  }
 }
