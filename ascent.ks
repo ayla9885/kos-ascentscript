@@ -1,5 +1,6 @@
 // ascent script
 clearscreen.
+runoncepath("0:ascentscript/libs/telemlib.ks")
 
 // variables
 set mySteer to up. 
@@ -19,21 +20,7 @@ function countdown {
 
 // gravity turn function
 function gravityturn {
-  // telemetry layout
-  clearscreen.
-  print("+-----------------Telemetry-----------------+").
-  print("|        Orbit        |       Program       |").
-  print("| Body:               |                     |").
-  print("| ApA:                | Pitch:              |").
-  print("| PeA:                |                     |").
-  print("| ApT:                |                     |").
-  print("| PeT:                |                     |").
-  print("| Alt:                |                     |").
-  print("| Vel:                |                     |").
-  print("|                     |                     |").
-  print("|                     |                     |").
-  print("|                     |                     |").
-  print("+-------------------------------------------+").
+
   // steering
   parameter pitchOver is 3. // initial pitch over (defaults to 3 degrees)
   set mySteer to heading( 90 , 90 - pitchOver).
@@ -41,21 +28,6 @@ function gravityturn {
     if verticalspeed >= 100 {
       set mySteer to ship:srfprograde.
     }
-    // telemetry output
-    set currentBody to body:name.
-    set ApA to round(apoapsis / 1000,1) + " km".
-    set PeA to round(periapsis / 1000,1) + " km".
-    set ApT to round(eta:apoapsis) + " s".
-    set PeT to round(eta:periapsis) + " s".
-    set currentAlt to round(altitude / 1000,1) + " km".
-    set pitch to up:pitch - facing:pitch.
-    print(currentBody:padright(14)) at (8,2).
-    print(ApA:padright(14)) at (8,3).
-    print(PeA:padright(14)) at (8,4).
-    print(ApT:padright(14)) at (8,5).
-    print(PeT:padright(14)) at (8,6).
-    print(currentAlt:padright(14)) at (8,7).
-    print(pitch) at (,3)
   }
 }
 
@@ -75,5 +47,9 @@ stage.
 wait until stage:ready.
 wait until firstEngine:thrust >= firstEngine:maxthrust.
 stage.
+telemStart().
 gravityturn().
+telemEnd().
+
+
 
