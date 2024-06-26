@@ -20,6 +20,19 @@ function countdown {
 // gravity turn function
 function gravityturn {
   clearscreen.
+  print("+-----------------Telemetry-----------------+").
+  print("| Velocity:                                 |").
+  print("| Altitude:                                 |").
+  print("|                                           |").
+  print("|                                           |").
+  print("|                                           |").
+  print("|                                           |").
+  print("|                                           |").
+  print("|                                           |").
+  print("|                                           |").
+  print("|                                           |").
+  print("|                                           |").
+  print("+-------------------------------------------+").
   parameter pitchOver is 3. // initial pitch over (defaults to 3 degrees)
   set mySteer to heading( 90 , 90 - pitchOver).
   until verticalspeed < 0 {
@@ -27,9 +40,9 @@ function gravityturn {
       set mySteer to ship:srfprograde.
     }
     // telemetry output
-    print("Pitch: " + round(pitchOver) + "     ") at (0,0).
-    print("Surface Velocity: " + round(airspeed) + "     ") at (0,1).
-    print("Altitude: " + round(altitude) + "     ") at (0,2).
+    print(round(airspeed) + " m/s") at (13,1).
+    print(round(altitude) + " m") at (13,2).
+    //print("Altitude: " + round(altitude) + "     ") at (1,3).
   }
 }
 
