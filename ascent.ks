@@ -48,7 +48,7 @@ wait until stage:ready.
 wait until firstEngine:thrust >= firstEngine:maxthrust.
 stage.
 telemStart().
-gravityturn().
+gravityturn(4).
 telemEnd().
 
 
